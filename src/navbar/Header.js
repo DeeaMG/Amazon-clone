@@ -3,14 +3,22 @@ import './Header.css';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import {Link} from "react-router-dom";
-import {useStateValue} from "./StateProvider";
+import {useStateValue} from "../checkout/StateProvider";
+import {auth} from "../firebase.js";
+import setUsername from "../utils/setUsername.js";
 
 function Header() {
-    const [{basket}, dispatch] = useStateValue();
+    const [{basket, user}, dispatch] = useStateValue();
+
+    const handleAuthentication = () => {
+        if(user) {
+            auth.signOut();
+        }
+    }
 
     return (
         <div className="header">
-            < Link to={"./"}>
+            <Link to={"./"} style={{ textDecoration: 'none' }}>
                 <img className="header_logo"
                      alt="Logo not found"
                      src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
@@ -23,10 +31,12 @@ function Header() {
             </div>
 
             <div className="header_nav">
-                <div className="header_option">
-                    <span className="header_optionOne">Hello</span>
-                    <span className="header_optionTwo">Sign in</span>
-                </div>
+                <Link to={!user && "/login"} style={{ textDecoration: 'none' }}>
+                    <div onClick={handleAuthentication} className="header_option">
+                        <span className="header_optionOne">Hello, {setUsername(user)}</span>
+                        <span className="header_optionTwo">{user ? "Sign Out" : "Sign In"}</span>
+                    </div>
+                </Link>
 
                 <div className="header_option">
                     <span className="header_optionOne">Returns</span>
@@ -38,7 +48,7 @@ function Header() {
                     <span className="header_optionTwo">Prime</span>
                 </div>
 
-                <Link to={"./checkout"}>
+                <Link to={"./checkout"} style={{ textDecoration: 'none' }}>
                     <div className="header_optionBasket">
                         <ShoppingBasketIcon/>
                         <span className="header_optionTwo header_basketCount">{basket?.length}</span>
