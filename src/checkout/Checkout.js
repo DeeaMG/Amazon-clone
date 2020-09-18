@@ -37,7 +37,7 @@ function Checkout() {
                 <Subtotal/>
             </div>
         </div>
-    )
+    );
 }
 
 

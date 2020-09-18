@@ -19,7 +19,7 @@
     margin-right: 5px;
 }
 
-.subtotal > button {
+.subtotal .subtotal_button {
     background: #f0c14b;
     border-radius: 2px;
     width: 100%;
@@ -27,4 +27,10 @@
     border: 1px solid;
     border-color: #a88734 #9c7e31 #846a29;
     color: #111;
+    cursor: pointer;
+    outline: none;
+}
+
+.subtotal_button:hover {
+    background: rgb(205, 160, 0);
 }
