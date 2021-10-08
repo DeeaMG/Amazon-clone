@@ -1,6 +1,6 @@
 import firebase from "firebase";
 
-
+const vvariable = 3454;
 const firebaseConfig = {
     // Place your config from Firebase here.
 };
